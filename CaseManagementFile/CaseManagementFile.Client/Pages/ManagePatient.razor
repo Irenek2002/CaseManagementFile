@@ -1,0 +1,126 @@
+﻿@page "/manage-patient"
+@page "/manage-patient/{PatientId:int}"
+@rendermode InteractiveAuto
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Add Patient</div>
+                <div class="card-body">
+                    <EditForm Model="PatientModel" OnValidSubmit="HandleSave">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="form-group">
+                            <label class="form-label">姓名</label>
+                            <InputText @bind-Value="PatientModel.Name" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.Name"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">姓別</label>
+                            <select @bind="PatientModel.Gender" class="form-control">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <ValidationMessage For="()=>PatientModel.Gender"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">預計療程時間/hour</label>
+                            <InputDate @bind-Value="PatientModel.ExpectedTreatmentTime" class="form-control"></InputDate>
+                            <ValidationMessage For="()=>PatientModel.ExpectedTreatmentTime"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">病名</label>
+                            <InputText @bind-Value="PatientModel.Diagnosis" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.Diagnosis"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">醫師</label>
+                            <InputText @bind-Value="PatientModel.Physician" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.Physician"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">最近體重</label>
+                            <InputNumber @bind-Value="PatientModel.RecentWeight" class="form-control"></InputNumber>
+                            <ValidationMessage For="()=>PatientModel.RecentWeight"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">病史</label>
+                            <InputText @bind-Value="PatientModel.MedicalHistory" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.MedicalHistory"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">規則服藥內容</label>
+                            <InputText @bind-Value="PatientModel.MedicationInstructions" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.MedicationInstructions"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">操作人員</label>
+                            <InputText @bind-Value="PatientModel.Operator" class="form-control"></InputText>
+                            <ValidationMessage For="()=>PatientModel.Operator"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">操作時間</label>
+                            <InputDate @bind-Value="PatientModel.OperationTime" class="form-control"></InputDate>
+                            <ValidationMessage For="()=>PatientModel.OperationTime"></ValidationMessage>
+                        </div>
+                        <button type="submit" class="btn btn-primary"> Save</button>
+                    </EditForm>
+                </div>
+
+                <div class="card-footer">
+                    PatientId: @ReturnPatient.PatientId <br />
+                    Name:@ReturnPatient.Name <br />
+                    Gender: @ReturnPatient.Gender<br />
+                    ExpectedTreatmentTime: @ReturnPatient.ExpectedTreatmentTime<br />
+                    Diagnosis: @ReturnPatient.Diagnosis <br />
+                    Physician:@ReturnPatient.Physician <br />
+                    RecentWeight: @ReturnPatient.RecentWeight<br />
+                    MedicalHistory: @ReturnPatient.MedicalHistory
+                    MedicationInstructions: @ReturnPatient.MedicationInstructions <br />
+                    Operator:@ReturnPatient.Operator <br />
+                    OperationTime: @ReturnPatient.OperationTime<br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    public Patient PatientModel { get; set; } = new();
+
+    [Parameter] public int PatientId { get; set; }
+
+    private Patient ReturnPatient = new();
+    private async Task HandleSave()
+    {
+        if (PatientModel.PatientId > 0)
+        {
+            ReturnPatient = await PatientService.UpdatePatientAsync(PatientModel);
+            PatientModel = new();
+        }
+
+        else
+        {
+            ReturnPatient = await PatientService.AddPatientAsync(PatientModel);
+            PatientModel = new();
+
+        }
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (PatientId > 0)
+        {
+            PatientModel= await PatientService.GetPatientByIdAsync(PatientId);
+        }
+        else
+        {
+            PatientModel.OperationTime = DateTime.Now; 
+            PatientModel.ExpectedTreatmentTime = DateTime.Now;
+        }
+    }
+
+}
