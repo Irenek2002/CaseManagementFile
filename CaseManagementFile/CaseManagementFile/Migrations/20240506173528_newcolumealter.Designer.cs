@@ -4,6 +4,7 @@ using CaseManagementFile.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CaseManagementFile.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240506173528_newcolumealter")]
+    partial class newcolumealter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,8 +53,8 @@ namespace CaseManagementFile.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Number")
-                        .HasColumnType("real");
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("OperationTime")
                         .HasColumnType("datetime2");
@@ -62,8 +65,8 @@ namespace CaseManagementFile.Migrations
                     b.Property<string>("Physician")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("RecentWeight")
-                        .HasColumnType("real");
+                    b.Property<int>("RecentWeight")
+                        .HasColumnType("int");
 
                     b.HasKey("PatientId");
 

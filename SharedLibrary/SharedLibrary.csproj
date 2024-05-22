@@ -47,6 +47,7 @@
     <Reference Include="Microsoft.Analytics.Types" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\NewPatient.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="PatientRepositories\IPatientRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

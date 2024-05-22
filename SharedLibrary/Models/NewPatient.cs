@@ -2,14 +2,14 @@
 using System;
 
 
-namespace SharedLibrary.Models   
+namespace SharedLibrary.Models
 {
-    public class Patient
+    public class NewPatient
     {
-        public int PatientId { get; set; } 
+        public int PatientId { get; set; }
         [Required]
 
-        public int Number { get; set; } 
+        public int Number { get; set; }
         [Required]
 
         public string Name { get; set; } = string.Empty;
@@ -24,7 +24,7 @@ namespace SharedLibrary.Models
 
         public string Physician { get; set; } = string.Empty;
 
-        public int RecentWeight { get; set; } = 60;
+        public float RecentWeight { get; set; } = 60.0f;
 
         public string MedicalHistory { get; set; } = string.Empty;
 

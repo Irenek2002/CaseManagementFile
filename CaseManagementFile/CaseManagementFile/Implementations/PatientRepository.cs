@@ -15,9 +15,9 @@ namespace CaseManagementFile.Implementations
 
         public async Task<Patient> AddPatientAsync(Patient model)
         {
-            if (model is null) return null!;
-            var chk = await appDbContext.Patients.Where(_ => _.Name.ToLower().Equals(model.Name.ToLower())).FirstOrDefaultAsync();
-            if (chk is not null) return null!;
+            //if (model is null) return null!;
+            //var chk = await appDbContext.Patients.Where(_ => _.PatientId.ToLower().Equals(model.PatientId.ToLower())).FirstOrDefaultAsync();
+            //if (chk is not null) return null!;
 
             var newDataAdded = appDbContext.Patients.Add(model).Entity;
             await appDbContext.SaveChangesAsync();

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseManagementFile", "CaseManagementFile\CaseManagementFile\CaseManagementFile.csproj", "{250A6263-49E5-419C-98FF-6CB30D0DF34C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaseManagementFile", "CaseManagementFile\CaseManagementFile\CaseManagementFile.csproj", "{250A6263-49E5-419C-98FF-6CB30D0DF34C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseManagementFile.Client", "CaseManagementFile\CaseManagementFile.Client\CaseManagementFile.Client.csproj", "{C5A1B7C1-7BD7-4988-9A73-4EDF5FAD9FC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaseManagementFile.Client", "CaseManagementFile\CaseManagementFile.Client\CaseManagementFile.Client.csproj", "{C5A1B7C1-7BD7-4988-9A73-4EDF5FAD9FC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "SharedLibrary\SharedLibrary.csproj", "{BD52A7BE-46A5-4214-8F66-38A7DFB85CC2}"
 EndProject

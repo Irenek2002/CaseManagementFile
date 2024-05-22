@@ -18,6 +18,7 @@ namespace CaseManagementFile.Client.Services
             return response!;
         }
 
+
         public async Task<Patient> DeletePatientAsync(int PatientId)
         {
             var Patient = await httpClient.DeleteAsync($"api/Patient/Delete-Patient/{PatientId}");

@@ -1,4 +1,4 @@
-﻿@page "/patient-list"
+﻿@page "/"
 @rendermode InteractiveAuto
 
 <div class="container">
@@ -18,14 +18,15 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>病歷號</th>
                                     <th>姓名</th>
                                     <th>性別</th>
-                                    <th>預計療程時間/hour</th>
                                     <th>病名</th>
+                                    <th>規則服藥內容</th>
+                                    <th>預計療程時間/hour:min</th>
                                     <th>醫師</th>
                                     <th>最近體重</th>
                                     <th>病史</th>
-                                    <th>規則服藥內容</th>
                                     <th>操作人員</th>
                                     <th>操作時間</th>
                                     <th>Actions</th>
@@ -36,21 +37,23 @@
                                 {
                                     <tr>
                                         <td>@patient.PatientId</td>
+                                        <td>@patient.Number</td>
                                         <td>@patient.Name</td>
                                         <td>@patient.Gender</td>
-                                        <td>@patient.ExpectedTreatmentTime.ToString("hh\\:mm\\:ss")</td>
                                         <td>@patient.Diagnosis</td>
+                                        <td><button class="btn btn-link" @onclick="() => ViewPatientMedicationDetails(patient)">@patient.MedicationInstructions</button></td>
+                                        <td>@patient.ExpectedTreatmentTime</td>
                                         <td>@patient.Physician</td>
                                         <td>@patient.RecentWeight</td>
                                         <td>@patient.MedicalHistory</td>
-                                        <td>@patient.MedicationInstructions</td>
                                         <td>@patient.Operator</td>
                                         <td>@patient.OperationTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
                                         <td>
                                             <div class="hstack gap-2">
                                                 <button class="btn  btn-info" @onclick="()=>Edit(patient)"> Edit</button>
                                                 <button class="btn  btn-danger" @onclick="() => Delete(patient.PatientId)"> Delete</button>
-
+                                                <button class="btn btn-primary" @onclick="() => AddAppointment(patient)"> 新增預約</button>
+                                                <button class="btn btn-secondary" @onclick="() => FillMedication(patient)"> 藥物填寫</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -99,5 +102,22 @@
     {
         var patient = await PatientService.DeletePatientAsync(id);
         await LoadPatients();
+    }
+
+    private void ViewPatientMedicationDetails(Patient patient)
+    {
+        NavigationManager.NavigateTo($"patient-medication/{patient.PatientId}");
+    }
+
+    private void AddAppointment(Patient patient)
+    {
+        // Navigate to add appointment page or show add appointment modal
+        NavigationManager.NavigateTo($"/newcalendar");
+    }
+
+    private void FillMedication(Patient patient)
+    {
+        // Navigate to fill medication page or show fill medication modal
+        NavigationManager.NavigateTo($"fill-medication/{patient.PatientId}");
     }
 }
